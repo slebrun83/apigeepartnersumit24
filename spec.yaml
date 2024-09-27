@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: Pizza Baking Simulator API
+  version: 1.0.0
+servers:
+  - url: https://api.pizzabakingsimulator.com
+paths:
+  /bakePizza:
+    post:
+      summary: Bakes a pizza based on the provided ingredients and cooking parameters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                base:
+                  type: string
+                  enum: [thin, thick]
+                sauce:
+                  type: string
+                  enum: [tomato, alfredo]
+                cheese:
+                  type: array
+                  items:
+                    type: string
+                toppings:
+                  type: array
+                  items:
+                    type: string
+                bakeTime:
+                  type: integer
+                  minimum: 1
+                bakeTemperature:
+                  type: integer
+                  minimum: 100
+              required: [base, sauce, cheese, toppings, bakeTime, bakeTemperature]
+      responses:
+        200:
+          description: Pizza baked successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [success]
+                  pizza:
+                    type: object
+                    properties:
+                      base:
+                        type: string
+                      sauce:
+                        type: string
+                      cheese:
+                        type: array
+                        items:
+                          type: string
+                      toppings:
+                        type: array
+                        items:
+                          type: string
+                      bakeTime:
+                        type: integer
+                      bakeTemperature:
+                        type: integer
+                      isBaked:
+                        type: boolean
+                      image:
+                        type: string
+                required: [status, pizza]
+        400:
+          description: Bad request.
+        500:
+          description: Internal server error.
