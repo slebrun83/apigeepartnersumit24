@@ -3,7 +3,7 @@ info:
   title: Pizza Baking Simulator API
   version: 1.0.0
 servers:
-  - url: https://api.pizzabakingsimulator.com
+  - url: https://34.117.38.184.nip.io
 paths:
   /bakePizza:
     post:
