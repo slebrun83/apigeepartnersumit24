@@ -1,13 +1,14 @@
-openapi: 3.0.0
+openapi: 3.0.0 
 info:
-  title: Pizza Baking Simulator API
+  title: Spaghetti Cooking API test simon
   version: 1.0.0
+  description: API for cooking spaghetti
 servers:
-  - url: https://34.117.38.184.nip.io
+  - url: https://api.example.com
 paths:
-  /bakePizza:
+  /cookSpaghetti:
     post:
-      summary: Bakes a pizza based on the provided ingredients and cooking parameters.
+      summary: Cook spaghetti
       requestBody:
         required: true
         content:
@@ -15,63 +16,36 @@ paths:
             schema:
               type: object
               properties:
-                base:
-                  type: string
-                  enum: [thin, thick]
-                sauce:
-                  type: string
-                  enum: [tomato, alfredo]
-                cheese:
-                  type: array
-                  items:
-                    type: string
-                toppings:
-                  type: array
-                  items:
-                    type: string
-                bakeTime:
+                waterTemperature:
                   type: integer
-                  minimum: 1
-                bakeTemperature:
+                  description: Temperature of the water in degrees Celsius
+                pastaQuantity:
                   type: integer
-                  minimum: 100
-              required: [base, sauce, cheese, toppings, bakeTime, bakeTemperature]
+                  description: Quantity of pasta in grams
+                cookingTime:
+                  type: integer
+                  description: Cooking time in seconds
       responses:
         200:
-          description: Pizza baked successfully.
+          description: Spaghetti cooked successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  status:
+                  success:
+                    type: boolean
+                    description: Indicates whether the spaghetti is cooked successfully
+                  message:
                     type: string
-                    enum: [success]
-                  pizza:
-                    type: object
-                    properties:
-                      base:
-                        type: string
-                      sauce:
-                        type: string
-                      cheese:
-                        type: array
-                        items:
-                          type: string
-                      toppings:
-                        type: array
-                        items:
-                          type: string
-                      bakeTime:
-                        type: integer
-                      bakeTemperature:
-                        type: integer
-                      isBaked:
-                        type: boolean
-                      image:
-                        type: string
-                required: [status, pizza]
+                    description: A message describing the cooking result
+                  isAlDente:
+                    type: boolean
+                    description: Indicates whether the spaghetti is cooked al dente
+                  isOvercooked:
+                    type: boolean
+                    description: Indicates whether the spaghetti is overcooked
         400:
-          description: Bad request.
+          description: Bad request
         500:
-          description: Internal server error.
+          description: Internal server error
